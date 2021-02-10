@@ -1,3 +1,2 @@
-This is the ukrainian version of Crocodile Game Bot. 
+Bu repodan [məndən](https://t.me/c9ala) icazə almamış tək bir söz belə əkən qeyrətsizdi şərəfsizdi.
 
-You can test it here: https://t.me/crocodile_ukraine_bot
