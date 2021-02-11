@@ -503,3 +503,13 @@ hələlik
 tərcümə
 tərcüməçi
 iş
+məkan
+restoran
+kafe
+nərd
+şahmat
+futbol
+basketbol
+tenis
+voleybol
+boks
