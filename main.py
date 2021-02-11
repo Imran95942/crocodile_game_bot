@@ -52,7 +52,7 @@ def clear_rating(update, context):
     """
     if 'rating' in context.chat_data and context.chat_data['rating']:
         context.chat_data['rating'] = None
-        update.message.reply_text("Reytinqi təmizləyirəm")
+        update.message.reply_text("Reytinqi təmizlədim.")
     else:
         update.message.reply_text("Bu söhbətdə dərəcələndirmə yoxdur")
 
