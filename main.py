@@ -77,7 +77,7 @@ def start(update, context):
     user_data = update['message'].from_user
     first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
     last_name = f" {user_data['last_name']}" if user_data['last_name'] is not None else ""
-    reply_text = f"[{first_name}{last_name}](tg://user?id={user_data['id']}) sözü açıəlayır!"
+    reply_text = f"[{first_name}{last_name}](tg://user?id={user_data['id']}) sözü açıqlayır!"
 
     context.chat_data['is_playing'] = True
     context.chat_data['current_player'] = user_data['id']
@@ -144,7 +144,7 @@ def guesser(update, context):
 
         logger.info(f"İsdifadəçi <{user_data['username']}> sözü tapdı <{context.chat_data['current_word']}>")
 
-        keyboard = [[InlineKeyboardButton("Aşağıdakıları açıqlamaq istəyirəm!", callback_data="next_player")]]
+        keyboard = [[InlineKeyboardButton("Aparıcı olmaq istəyirəm!", callback_data="next_player")]]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
         reply_text = f"[{first_name}{last_name}](tg://user?id={user_data['id']}) sözü tapdı!"
@@ -180,7 +180,7 @@ def next_player(update, context):
         # Update the temporary variables, edit the text
         first_name = query.from_user['first_name'] if query.from_user['first_name'] is not None else ""
         last_name = f" {query.from_user['last_name']}" if query.from_user['last_name'] is not None else ""
-        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']}) sözü açıəlayır!"
+        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']}) sözü açıqlayır!"
 
         context.chat_data["current_player"] = query.from_user['id']
         context.chat_data['current_word'] = choice(WORDS)
@@ -195,7 +195,7 @@ def next_player(update, context):
 
         # Show an alert
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Qazanın 5 saniyə vaxdı var, gözləyin!",
+                                      text="Sözü tapa şəxsin 5 saniyə vaxdı var, gözləyin!",
                                       show_alert=True)
 
 
@@ -215,7 +215,7 @@ def see_word(update, context):
         logger.info("Current player saw the word")
     else:
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Baxa bilməssən!",
+                                      text="Bu söz sənin üçün nəzərdə tutulmayıb!",
                                       show_alert=True)
         logger.info("Someone else asked to see the word, I didn't let them")
 
@@ -240,7 +240,7 @@ def next_word(update, context):
         logger.info("Current player skipped the word")
     else:
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Sonrakı sözə keçə bilməssən!",
+                                      text="Bu söz sənin üçün nəzərdə tutulmayıb!",
                                       show_alert=True)
         logger.info("Someone else asked to skip the word, I didn't let them")
 
