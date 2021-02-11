@@ -101,7 +101,7 @@ def stop(update, context):
         # Emptying all the temporary chat variables
         context.chat_data['current_player'] = None
         context.chat_data['current_word'] = None
-        context.chat_data["is_playing"] = False
+        context.chat_data["is_playing"] = True
         update.message.reply_text("Oyunu dayandırdım")
 
         # Changing the state to CHOOSING_PLAYER
