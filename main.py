@@ -174,7 +174,7 @@ def next_player(update, context):
              InlineKeyboardButton("🔄 Kelimeyi değiştir", callback_data="next")] 
             
         ]
-        reply_markup = InlineKeyboardMarkup(keyboard)
+        reply_markup = InlineKeyboardMarkup)
 
         # Update the temporary variables, edit the text
         first_name = query.from_user['first_name'] if query.from_user['first_name'] is not None else ""
