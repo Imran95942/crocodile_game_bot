@@ -66,28 +66,18 @@ def start(update, context):
         return
 
     logger.info("new game round")
-    
-    
-     # Reads the user data and makes up a message with a link
-    user_data = update['message'].from_user
-    first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
-    last_name = f" {user_data['last_name']}" if user_data['last_name'] is not None else ""   
-    reply_markup=InlineKeyboardMarkup [
-   
-
-    
+    keyboard = [
+       
+         [InlineKeyboardButton("📚 kelimeye bak", callback_data="look"),
+         InlineKeyboardButton("🔄 kelimeyi degistir", callback_data="next")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
     # Reads the user data and makes up a message with a link
     user_data = update['message'].from_user
     first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
     last_name = f" {user_data['last_name']}" if user_data['last_name'] is not None else ""
     reply_text = f"Oyun Başladı! [{first_name}{last_name}](tg://user?id={user_data['id']}) sözü açıqlayır!"
-     
-       keyboard = [
-       
-         [InlineKeyboardButton("📚 Sözə Bax", callback_data="look"),
-         InlineKeyboardButton("🔄 Sözü Dəyiş", callback_data="next")]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    
     context.chat_data['is_playing'] = True
     context.chat_data['current_player'] = user_data['id']
      
@@ -181,8 +171,8 @@ def next_player(update, context):
 
         query.answer()
          keyboard = [
-        [InlineKeyboardButton("📚 Sözə Bax", callback_data="look"),
-         InlineKeyboardButton("🔄 Sözü Dəyiş", callback_data="next")]
+        [InlineKeyboardButton("📚 kelimeye bak", callback_data="look"),
+         InlineKeyboardButton("🔄 kelimeyi değiştir", callback_data="next")]
          InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
         ]
      reply_markup = InlineKeyboardMarkup(keyboard)
