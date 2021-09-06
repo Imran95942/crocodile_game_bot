@@ -77,10 +77,20 @@ def start(update, context):
         [InlineKeyboardButton("📚 kelime bak", callback_data="look"),
          InlineKeyboardButton("🔄 kelimeyi değiş", callback_data="next"),
          InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
-         InlineKeyboardButton("💬 Support", url=f"https://t.me/{SUPPORT_GROUP}")
+         InlineKeyboardButton("💬 Support", url=f"https://t.me/{intikamtimi}")
     ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
 
-     # Randomly chooses the word from a list and puts it into the chat data
+    # Reads the user data and makes up a message with a link
+    user_data = update['message'].from_user
+    first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
+    last_name = f" {user_data['last_name']}" if user_data['last_name'] is not None else ""
+    reply_text = f"Oyun Başladı! [{first_name}{last_name}](tg://user?id={user_data['id']}) sözü açıqlayır!"
+
+    context.chat_data['is_playing'] = True
+    context.chat_data['current_player'] = user_data['id']
+     
+    # Randomly chooses the word from a list and puts it into the chat data
     word_choice = choice(WORDS)
     context.chat_data['current_word'] = word_choice
     logger.info(f"Chose the word {word_choice}")
@@ -180,7 +190,7 @@ def next_player(update, context):
         # Update the temporary variables, edit the text
         first_name = query.from_user['first_name'] if query.from_user['first_name'] is not None else ""
         last_name = f" {query.from_user['last_name']}" if query.from_user['last_name'] is not None else ""
-        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']}) sözü açıqlayır!"
+        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']}) naber dostum!"
 
         context.chat_data["current_player"] = query.from_user['id']
         context.chat_data['current_word'] = choice(WORDS)
