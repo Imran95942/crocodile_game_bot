@@ -51,7 +51,7 @@ def clear_rating(update, context):
     Clears the current game rating board
     """
     if 'rating' in context.chat_data and context.chat_data['sıralama']:
-        context.chat_data['rating'] = None
+        context.chat_data['Sıralama'] = None
         update.message.reply_text("sıralamayı temizledim.")
     else:
         update.message.reply_text("bu sohbette derecelendirme yoktur.")
@@ -62,7 +62,7 @@ def start(update, context):
     Starts the new round of the game
     """
     if 'is_playing' in context.chat_data and context.chat_data['yükleniyor']:
-        update.message.reply_text("Oyun başladı")
+        update.message.reply_text("Oyun zaten başladı")
         return
 
     logger.info("new game round")
@@ -241,7 +241,7 @@ def next_word(update, context):
         logger.info("Current player skipped the word")
     else:
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Bu söz sənin üçün nəzərdə tutulmayıb!",
+                                      text="Sunucu değilsin..!",
                                       show_alert=True)
         logger.info("Someone else asked to skip the word, I didn't let them")
 
@@ -270,15 +270,15 @@ def main():
             GUESSING: [MessageHandler(Filters.text, guesser),
                        CallbackQueryHandler(see_word, pattern="^look$"),
                        CallbackQueryHandler(next_word, pattern="^next$")
-                      allbackQueryHandler(end_word, pattern="^end$")],
+                       CallbackQueryHandler(end_word, pattern="^end$")],
         },
-        fallbacks=[CommandHandler('start', start), CommandHandler('stop', stop)],
+        fallbacks=[CommandHandler('kelime', start), CommandHandler('kbitir', stop)],
         name="my_conversation",
         per_user=False
     )
 
-    dp.add_handler(CommandHandler('rating', show_rating))
-    dp.add_handler(CommandHandler('clear_rating', clear_rating))
+    dp.add_handler(CommandHandler('sıralama', show_rating))
+    dp.add_handler(CommandHandler('sıralamasil', clear_rating))
 
     dp.add_handler(conv_handler)
 
