@@ -66,13 +66,13 @@ def start(update, context):
         return
 
     logger.info("new game round")
-
-    keyboard = [
-        [InlineKeyboardButton("📚 kelime bak", callback_data="look"),
-         InlineKeyboardButton("🔄 kelimeyi değiş", callback_data="next")]
-    ]
-  
-          reply_markup = InlineKeyboardMarkup(
+    
+@Client.on_message(filters.private & filters.incoming & filters.command(['start']))
+def _start(client, message):
+    client.send_message(message.chat.id,
+        text=tr.START_MSG.format(message.from_user.first_name, message.from_user.id),
+        parse_mode="markdown",
+        reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
@@ -90,6 +90,7 @@ def start(update, context):
         ),
         reply_to_message_id=message.message_id
         )
+
 
     # Reads the user data and makes up a message with a link
     user_data = update['message'].from_user
