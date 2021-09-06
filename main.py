@@ -71,7 +71,7 @@ def start(update, context):
         [InlineKeyboardButton("📚 kelime bak", callback_data="look"),
          InlineKeyboardButton("🔄 kelimeyi değiş", callback_data="next"),
          InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
-         InlineKeyboardButton("💬 Support", url=f"https://t.me/intikamailesi")
+         InlineKeyboardButton("💬 Support", url=f"https://t.me/{SUPPORT_GROUP}")
     ]
     
     reply_markup = InlineKeyboardMarkup(keyboard)
