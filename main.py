@@ -277,8 +277,8 @@ def main():
         per_user=False
     )
 
-    dp.add_handler(CommandHandler('sıralama', show_rating))
-    dp.add_handler(CommandHandler('sıralamasil', clear_rating))
+    dp.add_handler(CommandHandler('rating', show_rating))
+    dp.add_handler(CommandHandler('clear_rating', clear_rating))
 
     dp.add_handler(conv_handler)
 
