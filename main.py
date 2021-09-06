@@ -71,7 +71,25 @@ def start(update, context):
         [InlineKeyboardButton("📚 kelime bak", callback_data="look"),
          InlineKeyboardButton("🔄 kelimeyi değiş", callback_data="next")]
     ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+  
+          reply_markup = InlineKeyboardMarkup(keyboard)
+            [
+                [
+                    InlineKeyboardButton(
+                        "➕ Add me to your Group 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
+                [
+                    InlineKeyboardButton(
+                        "📲 Updates", url=f"https://t.me/{UPDATES_CHANNEL}"), 
+                    InlineKeyboardButton(
+                        "💬 Support", url=f"https://t.me/{SUPPORT_GROUP}")
+                ],[
+                    InlineKeyboardButton(
+                        "🛠 Source Code 🛠", url=f"https://{SOURCE_CODE}")
+                ]
+            ]
+        ),
+        reply_to_message_id=message.message_id
+        )
 
     # Reads the user data and makes up a message with a link
     user_data = update['message'].from_user
