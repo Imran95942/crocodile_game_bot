@@ -79,7 +79,6 @@ def start(update, context):
          InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
          InlineKeyboardButton("💬 Support", url=f"https://t.me/{SUPPORT_GROUP}")
     ]
-    reply_to_message_id=message.message_id 
 
     context.chat_data['is_playing'] = True
     context.chat_data['current_player'] = user_data['id']
