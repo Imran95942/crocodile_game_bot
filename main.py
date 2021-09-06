@@ -172,8 +172,8 @@ def next_player(update, context):
         query.answer()
         keyboard = [
         [InlineKeyboardButton("📚 kelimeye bak", callback_data="look"),
-         InlineKeyboardButton("🔄 kelimeyi değiştir", callback_data="next")
-         InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")]
+         InlineKeyboardButton("🔄 kelimeyi değiştir", callback_data="next"),
+         InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
         
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
