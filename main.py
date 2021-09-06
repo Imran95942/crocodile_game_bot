@@ -66,21 +66,20 @@ def start(update, context):
         return
 
     logger.info("new game round")
-    keyboard = [
+    
+    def _start(client, message):
+    client.send_message(message.chat.id,
+        text=tr.START_MSG.format(message.from_user.first_name, message.from_user.id),
+        parse_mode="markdown",
+                        
+    reply_markup=InlineKeyboardMarkup [
    
         [InlineKeyboardButton("📚 kelime bak", callback_data="look"),
          InlineKeyboardButton("🔄 kelimeyi değiş", callback_data="next"),
          InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
          InlineKeyboardButton("💬 Support", url=f"https://t.me/{SUPPORT_GROUP}")
     ]
-    
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    # Reads the user data and makes up a message with a link
-    user_data = update['message'].from_user
-    first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
-    last_name = f" {user_data['last_name']}" if user_data['last_name'] is not None else ""
-    reply_text = f"SELAM DOSTUM [{first_name}{last_name}](tg://user?id={user_data['id']}) Ben Miss Kelime Oyun botuyum!"
+    reply_to_message_id=message.message_id 
 
     context.chat_data['is_playing'] = True
     context.chat_data['current_player'] = user_data['id']
