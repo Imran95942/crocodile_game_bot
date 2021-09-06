@@ -171,16 +171,15 @@ def next_player(update, context):
 
         query.answer()
         keyboard = [
-        [InlineKeyboardButton("📚 kelimeye bak", callback_data="look"),
-         InlineKeyboardButton("🔄 kelimeyi değiştir", callback_data="next"),
-         InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
-        
+            [InlineKeyboardButton("📚 Sözə Bax", callback_data="look"),
+             InlineKeyboardButton("🔄 Sözü Dəyiş", callback_data="next")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
+
         # Update the temporary variables, edit the text
         first_name = query.from_user['first_name'] if query.from_user['first_name'] is not None else ""
         last_name = f" {query.from_user['last_name']}" if query.from_user['last_name'] is not None else ""
-        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']}) naber dostum!"
+        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']}) sözü açıqlayır!"
 
         context.chat_data["current_player"] = query.from_user['id']
         context.chat_data['current_word'] = choice(WORDS)
