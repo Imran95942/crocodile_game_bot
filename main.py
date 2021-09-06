@@ -72,7 +72,7 @@ def start(update, context):
          InlineKeyboardButton("🔄 kelimeyi değiş", callback_data="next")]
     ]
   
-          reply_markup = InlineKeyboardMarkup(keyboard(
+          reply_markup = InlineKeyboardMarkup(keyboard)(
             [
                 [
                     InlineKeyboardButton(
