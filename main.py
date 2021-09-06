@@ -72,7 +72,6 @@ def start(update, context):
     user_data = update['message'].from_user
     first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
     last_name = f" {user_data['last_name']}" if user_data['last_name'] is not None else ""   
-    [{first_name}{last_name}](tg://user?id={user_data['id']})
     reply_markup=InlineKeyboardMarkup [
    
         [InlineKeyboardButton("📚 kelime bak", callback_data="look"),
