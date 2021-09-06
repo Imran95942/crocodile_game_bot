@@ -125,8 +125,8 @@ def guesser(update, context):
 
         # Change the rating, add 1 win for the winner
         rating = dict()
-        if 'rating' in context.chat_data and context.chat_data['Sıralama']:
-            rating = context.chat_data['Sıralama']
+        if 'rating' in context.chat_data and context.chat_data['rating']:
+            rating = context.chat_data['rating']
 
         first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
         last_name = f" {user_data['last_name']}" if user_data['last_name'] is not None else ""
