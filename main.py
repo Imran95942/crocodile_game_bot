@@ -79,8 +79,8 @@ def start(update, context):
          InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
          InlineKeyboardButton("💬 Support", url=f"https://t.me/{intikamtimi}")
     ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
+    reply_markup = InlineKeyboardMarkup
+    
     # Reads the user data and makes up a message with a link
     user_data = update['message'].from_user
     first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
