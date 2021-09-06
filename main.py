@@ -176,7 +176,7 @@ def next_player(update, context):
          InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
         
         ]
-      reply_markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = InlineKeyboardMarkup(keyboard)
         # Update the temporary variables, edit the text
         first_name = query.from_user['first_name'] if query.from_user['first_name'] is not None else ""
         last_name = f" {query.from_user['last_name']}" if query.from_user['last_name'] is not None else ""
