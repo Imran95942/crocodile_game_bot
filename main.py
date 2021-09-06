@@ -67,11 +67,12 @@ def start(update, context):
 
     logger.info("new game round")
     
-    def _start(client, message):
-    client.send_message(message.chat.id,
-        text=tr.START_MSG.format(message.from_user.first_name, message.from_user.id),
-        parse_mode="markdown",
-                        
+    
+     # Reads the user data and makes up a message with a link
+    user_data = update['message'].from_user
+    first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
+    last_name = f" {user_data['last_name']}" if user_data['last_name'] is not None else ""   
+    [{first_name}{last_name}](tg://user?id={user_data['id']})
     reply_markup=InlineKeyboardMarkup [
    
         [InlineKeyboardButton("📚 kelime bak", callback_data="look"),
