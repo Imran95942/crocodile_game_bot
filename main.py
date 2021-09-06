@@ -80,10 +80,7 @@ def start(update, context):
          InlineKeyboardButton("💬 Support", url=f"https://t.me/{SUPPORT_GROUP}")
     ]
 
-    context.chat_data['is_playing'] = True
-    context.chat_data['current_player'] = user_data['id']
-
-    # Randomly chooses the word from a list and puts it into the chat data
+     # Randomly chooses the word from a list and puts it into the chat data
     word_choice = choice(WORDS)
     context.chat_data['current_word'] = word_choice
     logger.info(f"Chose the word {word_choice}")
