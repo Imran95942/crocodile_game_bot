@@ -173,8 +173,8 @@ def next_player(update, context):
         query.answer()
         keyboard = [
             [InlineKeyboardButton("📚 Kelimeye Bak ", callback_data="look"),
-             InlineKeyboardButton("🔄 Kelimeyi değiştir", callback_data="next") 
-            InlineKeyboardButton("✖️ Ben sunucu olmak istemiyorum", callback_data="end")]
+             InlineKeyboardButton("🔄 Kelimeyi değiştir", callback_data="next")] 
+            
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -269,8 +269,8 @@ def main():
 
             GUESSING: [MessageHandler(Filters.text, guesser),
                        CallbackQueryHandler(see_word, pattern="^look$"),
-                       CallbackQueryHandler(next_word, pattern="^next$")
-                       CallbackQueryHandler(end_word, pattern="^end$")],
+                       CallbackQueryHandler(next_word, pattern="^next$")],
+                       
         },
         fallbacks=[CommandHandler('kelime', start), CommandHandler('kbitir', stop)],
         name="my_conversation",
