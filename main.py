@@ -170,16 +170,17 @@ def next_player(update, context):
 
         query.answer()
         keyboard = [
-            [InlineKeyboardButton("📚 Kelimeye Bak ", callback_data="look"),
-             InlineKeyboardButton("🔄 Kelimeyi değiştir", callback_data="next")] 
-            
+            [InlineKeyboardButton("📚 kelime bak", callback_data="look"),
+         InlineKeyboardButton("🔄 kelimeyi değiş", callback_data="next"),
+         InlineKeyboardButton("➕ Beni Gruba Ekle 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),
+         InlineKeyboardButton("💬 Support", url=f"https://t.me/{intikamailesi}")  
         ]
-        reply_markup = InlineKeyboardMarkup)
+        reply_markup = InlineKeyboardMarkup
 
         # Update the temporary variables, edit the text
         first_name = query.from_user['first_name'] if query.from_user['first_name'] is not None else ""
         last_name = f" {query.from_user['last_name']}" if query.from_user['last_name'] is not None else ""
-        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']}) Kelime yükleniyor!"
+        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']}) sözü açıqlayır!"
 
         context.chat_data["current_player"] = query.from_user['id']
         context.chat_data['current_word'] = choice(WORDS)
@@ -194,7 +195,7 @@ def next_player(update, context):
 
         # Show an alert
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Kişinin kelimeyi bulması için 5 saniyesi var, bekleyin!",
+                                      text="Sözü tapa şəxsin 5 saniyə vaxdı var, gözləyin!",
                                       show_alert=True)
 
 
@@ -214,7 +215,7 @@ def see_word(update, context):
         logger.info("Current player saw the word")
     else:
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Bu kelime senin için değil!",
+                                      text="Bu söz sənin üçün nəzərdə tutulmayıb!",
                                       show_alert=True)
         logger.info("Someone else asked to see the word, I didn't let them")
 
@@ -239,7 +240,7 @@ def next_word(update, context):
         logger.info("Current player skipped the word")
     else:
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Sunucu değilsin..!",
+                                      text="Bu söz sənin üçün nəzərdə tutulmayıb!",
                                       show_alert=True)
         logger.info("Someone else asked to skip the word, I didn't let them")
 
@@ -252,7 +253,7 @@ def main():
     Main bot function
     """
     # Create the Updater and pass it your bot's token.
-    updater = Updater(token="1985172900:AAHxOyFNoJvWFMpmITCtA6K-ZrUBQ3Mc348", use_context=True)
+    updater = Updater(token="1663210064:AAFHurzGz3j0x2jplCAmZrnxXDOMLlotpJg", use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -268,9 +269,8 @@ def main():
             GUESSING: [MessageHandler(Filters.text, guesser),
                        CallbackQueryHandler(see_word, pattern="^look$"),
                        CallbackQueryHandler(next_word, pattern="^next$")],
-                       
         },
-        fallbacks=[CommandHandler('kelime', start), CommandHandler('kbitir', stop)],
+        fallbacks=[CommandHandler('start', start), CommandHandler('stop', stop)],
         name="my_conversation",
         per_user=False
     )
