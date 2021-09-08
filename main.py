@@ -181,7 +181,7 @@ def next_player(update, context):
         first_name = query.from_user['first_name'] if query.from_user['first_name'] is not None else ""
         last_name = f" {query.from_user['last_name']}" if query.from_user['last_name'] is not None else ""
         reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']})Ben Miss Kelime Oyunu Beni Gruba Ekle Oyun Komutun /kelime !"
- !"
+
 
         context.chat_data["current_player"] = query.from_user['id']
         context.chat_data['current_word'] = choice(WORDS)
