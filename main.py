@@ -68,7 +68,7 @@ def start(update, context):
     logger.info("new game round")
 
     keyboard = [
-        [InlineKeyboardButton("➕ BENİ GRUBA EKLE 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),                
+        [InlineKeyboardButton("📲 SAHİBİM", url=f"https://t.me/intikamsahibi"),                
          InlineKeyboardButton("📲 GRUBUMUZ", url=f"https://t.me/intikamailesi")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
