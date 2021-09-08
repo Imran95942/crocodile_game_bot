@@ -261,7 +261,7 @@ def main():
 
     # Add conversation handler with the states CHOOSING, TYPING_CHOICE and TYPING_REPLY
     conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('start', start)],
+        entry_points=[CommandHandler('kelime', kelime)],
 
         states={
             CHOOSING_PLAYER: [CallbackQueryHandler(next_player, pattern="^next_player$"),
@@ -271,7 +271,7 @@ def main():
                        CallbackQueryHandler(see_word, pattern="^look$"),
                        CallbackQueryHandler(next_word, pattern="^next$")],
         },
-        fallbacks=[CommandHandler('kelime', kelime), CommandHandler('stop', stop)],
+        fallbacks=[CommandHandler('start', start), CommandHandler('stop', stop)],
         name="my_conversation",
         per_user=False
     )
