@@ -57,7 +57,6 @@ def clear_rating(update, context):
         update.message.reply_text(
 "Bu konuşmada derecelendirme yok")
 
-
 def start(update, context):
     """
     Starts the new round of the game
@@ -69,7 +68,7 @@ def start(update, context):
     logger.info("new game round")
 
     keyboard = [
-        [InlineKeyboardButton("➕ BENİ GRUBA EKLE 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],                
+        [InlineKeyboardButton("➕ BENİ GRUBA EKLE 🙋‍♀️", url=f"https://t.me/{BOT_USERNAME}?startgroup=true"),                
          InlineKeyboardButton("📲 GRUBUMUZ", url=f"https://t.me/intikamailesi")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
