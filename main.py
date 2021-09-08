@@ -70,7 +70,7 @@ def start(update, context):
     keyboard = [
          
         [InlineKeyboardButton("📚 KELİMEYE BAK", callback_data="look"),
-         InlineKeyboardButton("🔄 KELİME DEĞİŞTİR", callback_data="next")
+         InlineKeyboardButton("🔄 KELİME DEĞİŞTİR", callback_data="next"),
          InlineKeyboardButton("📲 SAHİBİM", url=f"https://t.me/intikamsahibi"),                
          InlineKeyboardButton("📲 GRUBUMUZ", url=f"https://t.me/intikamailesi")]
     ]
