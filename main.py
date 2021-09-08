@@ -68,7 +68,10 @@ def start(update, context):
     logger.info("new game round")
 
     keyboard = [
-        [InlineKeyboardButton("📲 SAHİBİM", url=f"https://t.me/intikamsahibi"),                
+         
+        [InlineKeyboardButton("📚 KELİMEYE BAK", callback_data="look"),
+         InlineKeyboardButton("🔄 KELİME DEĞİŞTİR", callback_data="next")]
+         InlineKeyboardButton("📲 SAHİBİM", url=f"https://t.me/intikamsahibi"),                
          InlineKeyboardButton("📲 GRUBUMUZ", url=f"https://t.me/intikamailesi")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
