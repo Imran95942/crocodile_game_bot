@@ -3,7 +3,7 @@
 """
 Sultanov Andriy
 """
-
+import keys
 import os
 from random import shuffle, choice
 from datetime import datetime
@@ -38,12 +38,12 @@ def show_rating(update, context):
         # Sorts the dict with the rating, turns it into a readable format
         rating = context.chat_data['rating']
         rating = {key: value for key, value in sorted(rating.items(), key=lambda x: x[1][1], reverse=True)}
-        text = '\n'.join([f"{num + 1}. {item[1][0]}: {item[1][1]} qalibiyyət" for num, item in enumerate(rating.items())])
-        reply_text = f"Bu söhbətdəki oyunçu sıralaması:\n{text}"
+        text = '\n'.join([f"{num + 1}. {item[1][0]}: {item[1][1]} виграші" for num, item in enumerate(rating.items())])
+        reply_text = f"Рейтинг гравців у цьому чаті:\n{text}"
         update.message.reply_text(reply_text, parse_mode="Markdown")
 
     else:
-        update.message.reply_text("Bu Sohbette ki oyuncu sıralaması:")
+        update.message.reply_text("В цьому чаті не існує рейтингу")
 
 
 def clear_rating(update, context):
@@ -52,27 +52,24 @@ def clear_rating(update, context):
     """
     if 'rating' in context.chat_data and context.chat_data['rating']:
         context.chat_data['rating'] = None
-        update.message.reply_text("Reytinqi təmizlədim.")
+        update.message.reply_text("Я почистив рейтинг")
     else:
-        update.message.reply_text(
-"Bu konuşmada derecelendirme yok")
+        update.message.reply_text("В цьому чаті не існує рейтингу")
+
 
 def start(update, context):
     """
     Starts the new round of the game
     """
     if 'is_playing' in context.chat_data and context.chat_data['is_playing']:
-        update.message.reply_text("Oyun zaten başladı ")
+        update.message.reply_text("Гра вже почалась")
         return
 
     logger.info("new game round")
 
     keyboard = [
-         
-        [InlineKeyboardButton("📚 KELİMEYE BAK", callback_data="look"),
-         InlineKeyboardButton("🔄 KELİME DEĞİŞTİR", callback_data="next"),
-         InlineKeyboardButton("📲 SAHİBİM", url=f"https://t.me/intikamsahibi"),                
-         InlineKeyboardButton("📲 GRUBUMUZ", url=f"https://t.me/intikamailesi")]
+        [InlineKeyboardButton("Подивитись слово", callback_data="look"),
+         InlineKeyboardButton("Наступне слово", callback_data="next")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -80,7 +77,7 @@ def start(update, context):
     user_data = update['message'].from_user
     first_name = user_data['first_name'] if user_data['first_name'] is not None else ""
     last_name = f" {user_data['last_name']}" if user_data['last_name'] is not None else ""
-    reply_text = f"Selam Dostum [{first_name}{last_name}](tg://user?id={user_data['id']}) Ben Miss Kelime Oyunu Beni Gruba Ekle Oyun Komutun /kelime !"
+    reply_text = f"[{first_name}{last_name}](tg://user?id={user_data['id']}) пояснює слово!"
 
     context.chat_data['is_playing'] = True
     context.chat_data['current_player'] = user_data['id']
@@ -104,14 +101,14 @@ def stop(update, context):
         # Emptying all the temporary chat variables
         context.chat_data['current_player'] = None
         context.chat_data['current_word'] = None
-        context.chat_data["is_playing"] = True
-        update.message.reply_text("oyunu durdurdum")
+        context.chat_data["is_playing"] = False
+        update.message.reply_text("Я зупинив гру")
 
         # Changing the state to CHOOSING_PLAYER
         return CHOOSING_PLAYER
 
     else:
-        update.message.reply_text("oynayabileceğim oyun yok")
+        update.message.reply_text("Немає гри, яку я можу зупинити")
 
 
 def guesser(update, context):
@@ -145,19 +142,19 @@ def guesser(update, context):
         context.chat_data['winner'] = user_data['id']
         context.chat_data['win_time'] = datetime.now()
 
-        logger.info(f"İsdifadəçi <{user_data['username']}> sözü tapdı <{context.chat_data['current_word']}>")
+        logger.info(f"Player <{user_data['username']}> guessed the word <{context.chat_data['current_word']}>")
 
-        keyboard = [[InlineKeyboardButton("Aparıcı olmaq istəyirəm!", callback_data="next_player")]]
+        keyboard = [[InlineKeyboardButton("Я хочу пояснювати наступним!", callback_data="next_player")]]
 
         reply_markup = InlineKeyboardMarkup(keyboard)
-        reply_text = f"[{first_name}{last_name}](tg://user?id={user_data['id']}) sözü tapdı!"
+        reply_text = f"[{first_name}{last_name}](tg://user?id={user_data['id']}) вгадав слово!"
         update.message.reply_text(reply_text, reply_markup=reply_markup, parse_mode="Markdown")
 
         # Changing the state to CHOOSING_PLAYER
         return CHOOSING_PLAYER
 
     else:
-        logger.info(f"İsdifadəçi <{user_data['username']}> yazdı <{text}> tahmin edemedi")
+        logger.info(f"Player <{user_data['username']}> typed <{text}> and did not guess")
         return GUESSING
 
 
@@ -175,16 +172,15 @@ def next_player(update, context):
 
         query.answer()
         keyboard = [
-            [InlineKeyboardButton("📚 KELİMEYE BAK", callback_data="look"),
-             InlineKeyboardButton("🔄 KELİME DEĞİŞTİR", callback_data="next")]
+            [InlineKeyboardButton("Подивитись слово", callback_data="look"),
+             InlineKeyboardButton("Наступне слово", callback_data="next")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
         # Update the temporary variables, edit the text
         first_name = query.from_user['first_name'] if query.from_user['first_name'] is not None else ""
         last_name = f" {query.from_user['last_name']}" if query.from_user['last_name'] is not None else ""
-        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']})Ben Miss Kelime Oyunu Beni Gruba Ekle Oyun Komutun /kelime !"
-
+        reply_text = f"[{first_name}{last_name}](tg://user?id={query.from_user['id']}) пояснює слово!"
 
         context.chat_data["current_player"] = query.from_user['id']
         context.chat_data['current_word'] = choice(WORDS)
@@ -199,7 +195,7 @@ def next_player(update, context):
 
         # Show an alert
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Kişinin kelimeyi bulması için 5 saniyesi var, bekleyin!",
+                                      text="Переможець має 5 секунд на вибір, почекайте",
                                       show_alert=True)
 
 
@@ -219,7 +215,7 @@ def see_word(update, context):
         logger.info("Current player saw the word")
     else:
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Bu kelime senin için değil!",
+                                      text="Тобі не можна піддивлятися!",
                                       show_alert=True)
         logger.info("Someone else asked to see the word, I didn't let them")
 
@@ -244,7 +240,7 @@ def next_word(update, context):
         logger.info("Current player skipped the word")
     else:
         query.bot.answerCallbackQuery(callback_query_id=query.id,
-                                      text="Bu kelime senin için değil!",
+                                      text="Тобі не можна переходити до наступного слова!",
                                       show_alert=True)
         logger.info("Someone else asked to skip the word, I didn't let them")
 
@@ -256,15 +252,16 @@ def main():
     """
     Main bot function
     """
+    token = os.environ['TOKEN']
     # Create the Updater and pass it your bot's token.
-    updater = Updater(token="1957029991:AAGc0yQX0djjmkn3JAsnc046BDs4Av16JAA", use_context=True)
+    updater = Updater(token, use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
     # Add conversation handler with the states CHOOSING, TYPING_CHOICE and TYPING_REPLY
     conv_handler = ConversationHandler(
-        entry_points=[CommandHandler('start',start)],
+        entry_points=[CommandHandler('start', start)],
 
         states={
             CHOOSING_PLAYER: [CallbackQueryHandler(next_player, pattern="^next_player$"),
